@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../../services/swapi-service';
 import SwapiService from '../../services/swapi-service';
+import Spinner from '../Spinner';
 
 import './RandomPlanet.css';
 
@@ -33,24 +34,25 @@ export default class RandomPlanet extends Component {
     const { planet: {id, name, population, rotationPeriod, diameter}} = this.state;
 
     return (
-      <div className="random-planet jumbotron rounded">
-        <img className="planet-image"
-             src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} />
-        <div>
-          <h4>{name}</h4>
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item">
-              <span className="term">{population}</span>
-            </li>
-            <li className="list-group-item">
-              <span className="term">{rotationPeriod}</span>
-            </li>
-            <li className="list-group-item">
-              <span className="term">{diameter}</span>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <Spinner/>
+      // <div className="random-planet jumbotron rounded">
+      //   <img className="planet-image"
+      //        src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} />
+      //   <div>
+      //     <h4>{name}</h4>
+      //     <ul className="list-group list-group-flush">
+      //       <li className="list-group-item">
+      //         <span className="term">{population}</span>
+      //       </li>
+      //       <li className="list-group-item">
+      //         <span className="term">{rotationPeriod}</span>
+      //       </li>
+      //       <li className="list-group-item">
+      //         <span className="term">{diameter}</span>
+      //       </li>
+      //     </ul>
+      //   </div>
+      // </div>
 
     );
   }
