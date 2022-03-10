@@ -51,7 +51,7 @@ export default class SwapiService {
 
     }
 
-    _transformPlanet(planet) {
+    _transformPlanet = (planet) => {
 
       return {
         id: this._extractId(planet),
@@ -59,10 +59,10 @@ export default class SwapiService {
         population: planet.population,
         rotationPeriod: planet.rotation_period,
         diameter: planet.diameter
-      }
-    }
+      };
+    };
 
-    _transformStarship(starship) {
+    _transformStarship = (starship) => {
 
       return {
         id: this._extractId(starship),
@@ -74,10 +74,10 @@ export default class SwapiService {
         crew: starship.crew,
         passengers: starship.passengers,
         cargoCapacity: starship.cargoCapacity
-      }
-    }
+      };
+    };
 
-    _transformPerson(person) {
+    _transformPerson = (person) => {
       
       return {
         id: this._extractId(person),
@@ -94,7 +94,7 @@ export default class SwapiService {
   
   swapi.getAllPeople().then((people) => {
     people.forEach( (p) => {
-      console.log(p.name);  
+      // console.log(p.name);  
     });
     // console.log(body);
   })
