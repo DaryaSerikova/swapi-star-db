@@ -3,6 +3,7 @@
 export default class SwapiService {
 
     _apiBase = 'https://swapi.dev/api';
+
     async getResource(url) {
       const res = await fetch(`${this._apiBase}${url}`);
   
@@ -16,12 +17,12 @@ export default class SwapiService {
   
     async getAllPeople() {
       const res = await this.getResource(`/people/`);
-      return res.results;
+      return res.results.map(this._transformPerson);
     }
   
     async getPerson(id) {
-      const person = this.getResource(`/people/${id}`);
-      return this._transformPerson(person)
+      const person = this.getResource(`/people/${id}/`);
+      return this._transformPerson(person);
     }
   
     async getAllPlanet() {
@@ -30,7 +31,7 @@ export default class SwapiService {
     }
   
     async getPlanet(id) {
-      const planet = await this.getResource(`/planets/${id}`);
+      const planet = await this.getResource(`/planets/${id}/`);
       return this._transformPlanet(planet);
     }
   
@@ -40,15 +41,15 @@ export default class SwapiService {
     }
   
     async getStarship(id) {
-      const starship = this.getResource(`/starships${id}`);
+      const starship = this.getResource(`/starships/${id}/`);
       return this._transformStarship(starship);
     }
 
     _extractId(item) {
       const idRegExp = /\/([0-9]*)\/$/;
-      // const id = item.url.match(idRegExp)[1]
-      return item.url.match(idRegExp)[1] 
-
+      // console.log(item);
+      console.log(item.url);
+      return item.url.match(idRegExp)[1];
     }
 
     _transformPlanet = (planet) => {
@@ -69,11 +70,11 @@ export default class SwapiService {
         name: starship.name,
         model: starship.model,
         manufacturer: starship.manufacturer,
-        costInCredits: starship.costInCredits,
+        costInCredits: starship.cost_in_credits,
         length: starship.length,
         crew: starship.crew,
         passengers: starship.passengers,
-        cargoCapacity: starship.cargoCapacity
+        cargoCapacity: starship.cargo_capacity
       };
     };
 
@@ -83,8 +84,8 @@ export default class SwapiService {
         id: this._extractId(person),
         name: person.name,
         gender: person.gender,
-        birthYear: person.birthYear,
-        eyeColor: person.eyeColor
+        birthYear: person.birth_year,
+        eyeColor: person.eye_color
       }
     }
   
@@ -100,7 +101,7 @@ export default class SwapiService {
   })
   
   swapi.getPerson(3).then((p) => {
-      console.log(p.name);  
+      // console.log(p.name);  
   });
     
   

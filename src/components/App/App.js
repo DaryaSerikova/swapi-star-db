@@ -10,26 +10,34 @@ import './App.css';
 export default class App extends Component {
 
   state = {
-    showRandomPlanet: true,
-    selectedPerson: null
+    // showRandomPlanet: true,
+    selectedPerson: 5
   };
 
-  // toggleRandomPlanet = () => {}
+  // toggleRandomPlanet = () => {
+  //   this.setState((state) => {
+  //     return {
+  //       showRandomPlanet: !state.showRandomPlanet
+  //     }
+  //   });
+  // };
+
 
   onPersonSelected = (id) => {
     this.setState({
       selectedPerson: id
-    })
-  }
+    });
+  };
 
   render() {
-    const planet = this.state.showRandomPlanet ?
-      <RandomPlanet /> :
-      null;
+    // const planet = this.state.showRandomPlanet ?
+    //   <RandomPlanet /> :
+    //   null;
     
     return (
       <div className="stardb-app">
         <Header />
+
         {/* {planet} */}
         <RandomPlanet /> 
 

@@ -19,12 +19,13 @@ export default class RandomPlanet extends Component {
 
   componentDidMount() {
     this.updatePlanet();
-    this.interval = setInterval(this.updatePlanet, 10000);
+    this.interval = setInterval(this.updatePlanet, 100000);
+    //clearInterval(this.interval);
   }
 
-  componentWillUnmount() {
-    console.log('componentWillUnmount()');
-  }
+  // componentWillUnmount() {
+  //   console.log('componentWillUnmount()');
+  // }
 
 
   onPlanetLoaded = (planet) => {
@@ -42,17 +43,17 @@ export default class RandomPlanet extends Component {
   };
 
   updatePlanet = () => {
-    console.log('update')
-    const id = Math.floor(Math.random()*25) + 3;
+    // console.log('update')
+    const id = Math.floor(Math.random()*17) + 2;
     // const id = 15;
     this.swapiService
       .getPlanet(id)
       .then(this.onPlanetLoaded)
       .catch(this.onError);
-  }
+  };
 
   render() {
-    console.log('render()');
+    // console.log('render()');
     const { planet, loading, error} = this.state;
 
     const hasData = !(loading || error); //нет ни загрузки, ни ошибки
@@ -62,18 +63,17 @@ export default class RandomPlanet extends Component {
     const content = hasData ? <PlanetView planet={planet}/> : null;
 
     return (
-      
       <div className="random-planet jumbotron rounded">
         {errorMessage}
         {spinner}
         {content}
       </div>
-
     );
   }
 }
 
 const PlanetView = ({planet}) => {
+
   const {id, name, population, rotationPeriod, diameter} = planet;
 
   return(
@@ -84,16 +84,19 @@ const PlanetView = ({planet}) => {
           <h4>{name}</h4>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
-              <span className="term">{population}</span>
+              <span className="term">Population</span>
+              <span>{population}</span>
             </li>
             <li className="list-group-item">
-              <span className="term">{rotationPeriod}</span>
+              <span className="term">Rotation Period</span>
+              <span>{rotationPeriod}</span>
             </li>
             <li className="list-group-item">
-              <span className="term">{diameter}</span>
+              <span className="term">Diameter</span>
+              <span>{diameter}</span>
             </li>
           </ul>
         </div>
     </React.Fragment>
-  )
+  );
 };
