@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SwapiService from '../../services/swapi-service';
+import ErrorButton from '../ErrorButton';
 
 import './PersonDetails.css';
 
@@ -15,14 +16,6 @@ export default class PersonDetails extends Component {
     console.log('componentDidMount()')
     this.updatePerson();
   }
-
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.personId !== prevProps.personId) {
-  //   console.log('componentDidUpdate')
-
-  //     this.updatePerson();
-  //   }
-  // }
 
   componentDidUpdate(prevProps) { 
     // код нужно обязательно обернуть в условие, 
@@ -52,11 +45,13 @@ export default class PersonDetails extends Component {
     console.log('render');
     console.log('this.state.person:',this.state.person);
 
+    const { person } = this.state;
+
     if (!this.state.person) {
       return <span>Select a person from a list</span>;
     }
 
-    const { id, name, gender, birthYear, eyeColor} = this.state.person;
+    const { id, name, gender, birthYear, eyeColor} = person;
  
     
     return (
@@ -81,6 +76,7 @@ export default class PersonDetails extends Component {
               <span>{eyeColor}</span>
             </li>
           </ul>
+          <ErrorButton />
         </div>
       </div>
     )
