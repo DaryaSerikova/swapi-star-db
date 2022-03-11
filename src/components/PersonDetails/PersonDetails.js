@@ -28,24 +28,16 @@ export default class PersonDetails extends Component {
     console.log('updatePerson()')
 
     const { personId } = this.props;
-    console.log(personId)
 
     if(!personId) {
       return; // если personId === null мы не будем делать ничего
     }
-    console.log('jshfjsf')
-    // this.swapiService
-    // .getPlanet(id)
-    // .then(this.onPlanetLoaded);
-    console.log(this);
-    const newPerson = this.swapiService
+
+    this.swapiService
       .getPerson(personId)
-      // .then((person) => { //когда данные станут доступны,
-      //   console.log('sfdsf')
-      //   this.setState({ person }); //обновляем данные
-      // })
-      console.log('personId',personId)
-      console.log('newPerson',newPerson)
+      .then((person) => { //когда данные станут доступны,
+        this.setState({ person }); //обновляем данные
+      })
   }
 
   render() {
@@ -56,7 +48,7 @@ export default class PersonDetails extends Component {
     }
 
     const { id, name, gender, birthYear, eyeColor} = this.state.person;
-    console.log(id, name, gender, birthYear, eyeColor);
+ 
     
     return (
       <div className="person-details card">

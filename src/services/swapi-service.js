@@ -21,7 +21,7 @@ export default class SwapiService {
     }
   
     async getPerson(id) {
-      const person = this.getResource(`/people/${id}/`);
+      const person = await this.getResource(`/people/${id}/`);
       return this._transformPerson(person);
     }
   
@@ -41,14 +41,12 @@ export default class SwapiService {
     }
   
     async getStarship(id) {
-      const starship = this.getResource(`/starships/${id}/`);
+      const starship = this.getResource(`/starships/${id}/`); //await?
       return this._transformStarship(starship);
     }
 
     _extractId(item) {
       const idRegExp = /\/([0-9]*)\/$/;
-      // console.log(item);
-      console.log(item.url);
       return item.url.match(idRegExp)[1];
     }
 
