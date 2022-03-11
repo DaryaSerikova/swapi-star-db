@@ -43,7 +43,7 @@ export default class PersonDetails extends Component {
 
   render() {
     console.log('render');
-    console.log('this.state.person:',this.state.person);
+    // console.log('this.state.person:',this.state.person);
 
     const { person } = this.state;
 
@@ -52,6 +52,7 @@ export default class PersonDetails extends Component {
     }
 
     const { id, name, gender, birthYear, eyeColor} = person;
+    // console.log('person.id:',id)
  
     
     return (
