@@ -24,6 +24,14 @@ export default class PersonDetails extends Component {
   //   }
   // }
 
+  componentDidUpdate(prevProps) { 
+    // код нужно обязательно обернуть в условие, 
+    // если нужно сменить setState,иначе будет бесконечный цикл рендеров
+    if(this.props.personId !== prevProps.personId) { 
+      this.updatePerson();
+    }
+  }
+
   updatePerson () {
     console.log('updatePerson()')
 
@@ -43,6 +51,7 @@ export default class PersonDetails extends Component {
   render() {
     console.log('render');
     console.log('this.state.person:',this.state.person);
+
     if (!this.state.person) {
       return <span>Select a person from a list</span>;
     }

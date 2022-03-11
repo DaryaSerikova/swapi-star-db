@@ -7,6 +7,7 @@ import './ItemList.css';
 export default class ItemList extends Component {
 
   swapiService =  new SwapiService();
+
   state = {
     peopleList: null
   };
@@ -22,11 +23,13 @@ export default class ItemList extends Component {
   }
 
   renderItems(arr) {
+
     return arr.map(({id, name}) => {
+      console.log(this)
       return (
         <li className="list-group-item"
           key={id}
-          onClick={() => this.propsOnItemSelected(id)}>
+          onClick={() => this.props.onItemSelected(id)}>
           {name}
         </li>
       )
@@ -41,7 +44,7 @@ export default class ItemList extends Component {
       return <Spinner />
     }
 
-    const items = this.renderItems(peopleList)
+    const items = this.renderItems(peopleList);
 
     return (
       <ul className="item-list list-group">
