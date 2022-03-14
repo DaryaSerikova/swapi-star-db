@@ -2,67 +2,71 @@ import React, { Component } from 'react';
 import SwapiService from '../../services/swapi-service';
 import ErrorButton from '../ErrorButton';
 
-import './PersonDetails.css';
+import './ItemDetails.css';
 
-export default class PersonDetails extends Component {
+export default class ItemDetails extends Component {
 
   swapiService = new SwapiService();
 
   state =  {
-    person: null
+    item: null,
+    image: null
   };
 
   componentDidMount() {
     console.log('componentDidMount()')
-    this.updatePerson();
+    this.updateItem();
   }
 
-  componentDidUpdate(prevProps) { 
+  componentDidUpdate(prevProps) {
+    console.log('componentDidUpdate()')
     // код нужно обязательно обернуть в условие, 
     // если нужно сменить setState,иначе будет бесконечный цикл рендеров
-    if(this.props.personId !== prevProps.personId) { 
-      this.updatePerson();
+    if(this.props.itemId !== prevProps.itemId) { 
+      this.updateItem();
     }
   }
 
-  updatePerson () {
-    console.log('updatePerson()')
+  updateItem () {
+    console.log('updateItem()')
 
-    const { personId } = this.props;
+    const { itemId, getData, getImageUrl } = this.props;
 
-    if(!personId) {
+    if(!itemId) {
       return; // если personId === null мы не будем делать ничего
     }
 
-    this.swapiService
-      .getPerson(personId)
-      .then((person) => { //когда данные станут доступны,
-        this.setState({ person }); //обновляем данные
-      })
+    getData(itemId)
+      .then((item) => { //когда данные станут доступны,
+        console.log(item)
+        this.setState({ 
+          item,
+          image: getImageUrl(item)
+         }); //обновляем данные
+      });
   }
 
   render() {
     console.log('render');
-    // console.log('this.state.person:',this.state.person);
 
-    const { person } = this.state;
-
-    if (!this.state.person) {
-      return <span>Select a person from a list</span>;
+    const { item, image } = this.state;
+    console.log(item);
+    if (!item) { // item?
+      return <span>Select an item from a list</span>;
     }
 
-    const { id, name, gender, birthYear, eyeColor} = person;
+    const { id, name, gender, birthYear, eyeColor} = item;
     // console.log('person.id:',id)
  
     
     return (
-      <div className="person-details card">
-        <img className="person-image"
-          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} 
-          alt="character"/>
+      <div className="item-details card">
+        <img className="item-image"
+          src={image} 
+          alt="item"/>
 
         <div className="card-body">
-          <h4>{name} {this.props.personId}</h4>
+          <h4>{name} {this.props.itemId}</h4>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
               <span className="term">Gender</span>
