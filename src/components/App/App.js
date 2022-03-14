@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import Header from '../Header';
 import RandomPlanet from '../RandomPlanet';
-// import ItemList from '../ItemList';
+import ItemList from '../ItemList';
 import ItemDetails from '../ItemDetails';
 import ErrorIndicator from '../ErrorIndicator';
 import SwapiService from '../../services/swapi-service';
@@ -46,7 +46,12 @@ export default class App extends Component {
       <RandomPlanet /> :
       null;
 
-    const {getPerson, getStarship, getPersonImage, getStarshipImage} = this.swapiService;
+      const { getPerson,
+              getStarship,
+              getPersonImage,
+              getStarshipImage,
+              getAllPeople,
+              getAllPlanets } = this.swapiService;
 
     const personDetails = (
       <ItemDetails 
@@ -92,37 +97,24 @@ export default class App extends Component {
 
 
           {/* <PeoplePage /> */}
-          <Row
+          {/* <Row
             left={personDetails}
             right={starshipDetails}
-          />
+          /> */}
 
-          {/* <div className="row mb2">
-            <div className="col-md-6">
-              <ItemList 
-                onItemSelected={this.onPersonSelected}
-                getData={this.swapiService.getAllPlanets}
-                renderItem={(item) => (
-                  <span>{item.name}<button>!</button></span>
-                  )}/>
-            </div>
-            <div className="col-md-6">
-              <PersonDetails personId={this.state.selectedPerson}/>
-            </div>
-          </div>
+          <ItemList
+            getData={getAllPeople}
+            onItemSelected={() => {}}>
 
-          <div className="row mb2">
-            <div className="col-md-6">
-              <ItemList 
-                onItemSelected={this.onPersonSelected}
-                getData={this.swapiService.getAllStarships}
-                renderItem={(item) => item.name}
-              />
-            </div>
-            <div className="col-md-6">
-              <PersonDetails personId={this.state.selectedPerson}/>
-            </div>
-          </div> */}
+            { ({name}) => <span>{name}</span> }
+          </ItemList>
+
+          <ItemList
+            getData={getAllPlanets}
+            onItemSelected={() => {}}>
+
+            { ({name}) => <span>{name}</span> }
+          </ItemList>
 
         </div>
       </ErrorBoundary>

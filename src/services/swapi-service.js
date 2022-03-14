@@ -28,7 +28,7 @@ export default class SwapiService {
   }
 
   getAllPlanets = async () => {
-    console.log('this', this)
+    // console.log('this', this)
     const res = await this.getResource(`/planets/`);
     return res.results.map(this._transformPerson);
   }
