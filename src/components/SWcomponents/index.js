@@ -1,8 +1,8 @@
-import {
-    PersonDetails,
-    PlanetDetails,
-    StarshipDetails
-} from './Details';
+import PersonDetails from './PersonDetails';
+import PlanetDetails from './PlanetDetails';
+import StarshipDetails from './StarshipDetails';
+
+
 
 import {
     PersonList,
