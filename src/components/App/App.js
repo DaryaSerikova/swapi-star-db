@@ -11,6 +11,9 @@ import Row from '../Row';
 import './App.css';
 import ErrorBoundary from '../ErrorBoundary';
 import { Record } from '../ItemDetails/ItemDetails';
+
+import { SwapiServiceProvider } from '../SwapiServiceContext.js';
+
 import {
   PersonDetails,
   PlanetDetails,
@@ -89,38 +92,40 @@ export default class App extends Component {
 
     return (
       <ErrorBoundary>
-        <div className="stardb-app">
-          <Header />
+        <SwapiServiceProvider value={this.swapiService} >
+          <div className="stardb-app">
+            <Header />
 
-          <PersonDetails itemId={11}/>
-          <PlanetDetails itemId={5}/>
-          <StarshipDetails itemId={9}/>
-
-
-
-          {/* {planet}
-
-          <div className="row mb2 button-row">
-            <button
-              className="toggle-planet btn btn-warning btn-lg"
-              onClick={this.toggleRandomPlanet}>
-              Toggle Random Planet
-            </button>
-            <ErrorButton/>
-          </div> */}
+            <PersonDetails itemId={11}/>
+            <PlanetDetails itemId={5}/>
+            <StarshipDetails itemId={9}/>
 
 
-          {/* <PeoplePage /> */}
-          {/* <Row
-            left={personDetails}
-            right={starshipDetails}
-          /> */}
 
-          <PersonList/>
-          <PlanetList/>
-          <StarshipList/>
+            {/* {planet}
 
-        </div>
+            <div className="row mb2 button-row">
+              <button
+                className="toggle-planet btn btn-warning btn-lg"
+                onClick={this.toggleRandomPlanet}>
+                Toggle Random Planet
+              </button>
+              <ErrorButton/>
+            </div> */}
+
+
+            {/* <PeoplePage /> */}
+            {/* <Row
+              left={personDetails}
+              right={starshipDetails}
+            /> */}
+
+            <PersonList/>
+            <PlanetList/>
+            <StarshipList/>
+
+          </div>
+        </SwapiServiceProvider>
       </ErrorBoundary>
     );
   }
