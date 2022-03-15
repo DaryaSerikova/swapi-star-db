@@ -11,6 +11,14 @@ import Row from '../Row';
 import './App.css';
 import ErrorBoundary from '../ErrorBoundary';
 import { Record } from '../ItemDetails/ItemDetails';
+import {
+  PersonDetails,
+  PlanetDetails,
+  StarshipDetails,
+  PersonList,
+  PlanetList,
+  StarshipList
+} from '../SWcomponents';
 
 export default class App extends Component {
 
@@ -46,43 +54,49 @@ export default class App extends Component {
       <RandomPlanet /> :
       null;
 
-      const { getPerson,
-              getStarship,
-              getPersonImage,
-              getStarshipImage,
-              getAllPeople,
-              getAllPlanets } = this.swapiService;
+      // const { getPerson,
+      //         getStarship,
+      //         getPersonImage,
+      //         getStarshipImage,
+      //         getAllPeople,
+      //         getAllPlanets } = this.swapiService;
 
-    const personDetails = (
-      <ItemDetails 
-      itemId={11}
-      getData={getPerson}  
-      getImageUrl={getPersonImage}>
+    // const personDetails = (
+    //   <ItemDetails 
+    //   itemId={11}
+    //   getData={getPerson}  
+    //   getImageUrl={getPersonImage}>
 
-        <Record field="gender" label="Gender"/>
-        <Record field="eyeColor" label="Eye Color"/>
+    //     <Record field="gender" label="Gender"/>
+    //     <Record field="eyeColor" label="Eye Color"/>
 
-      </ItemDetails>
-    );
+    //   </ItemDetails>
+    // );
 
-    const starshipDetails = (
-      <ItemDetails 
-      itemId={5}
-      getData={getStarship} 
-      getImageUrl={getStarshipImage}>
+    // const starshipDetails = (
+    //   <ItemDetails 
+    //   itemId={5}
+    //   getData={getStarship} 
+    //   getImageUrl={getStarshipImage}>
 
-        <Record field="model" label="Model"/>
-        <Record field="length" label="Length"/>
-        <Record field="costInCredits" label="Cost"/>
+    //     <Record field="model" label="Model"/>
+    //     <Record field="length" label="Length"/>
+    //     <Record field="costInCredits" label="Cost"/>
 
 
-      </ItemDetails>
-    );
+    //   </ItemDetails>
+    // );
 
     return (
       <ErrorBoundary>
         <div className="stardb-app">
           <Header />
+
+          <PersonDetails itemId={11}/>
+          <PlanetDetails itemId={5}/>
+          <StarshipDetails itemId={9}/>
+
+
 
           {/* {planet}
 
@@ -102,19 +116,17 @@ export default class App extends Component {
             right={starshipDetails}
           /> */}
 
-          <ItemList
-            getData={getAllPeople}
-            onItemSelected={() => {}}>
-
+          <PersonList>
             { ({name}) => <span>{name}</span> }
-          </ItemList>
+          </PersonList>
 
-          <ItemList
-            getData={getAllPlanets}
-            onItemSelected={() => {}}>
-
+          <StarshipList>
             { ({name}) => <span>{name}</span> }
-          </ItemList>
+          </StarshipList>
+
+          <PlanetList>
+            { ({name}) => <span>{name}</span> }
+          </PlanetList>
 
         </div>
       </ErrorBoundary>

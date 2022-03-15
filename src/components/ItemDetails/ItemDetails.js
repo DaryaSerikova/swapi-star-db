@@ -34,6 +34,7 @@ export default class ItemDetails extends Component {
 
   componentDidUpdate(prevProps) {
     console.log('componentDidUpdate()')
+    
     // код нужно обязательно обернуть в условие, 
     // если нужно сменить setState,иначе будет бесконечный цикл рендеров
     if(this.props.itemId !== prevProps.itemId) { 
@@ -42,7 +43,6 @@ export default class ItemDetails extends Component {
   }
 
   updateItem () {
-    console.log('updateItem()')
 
     const { itemId, getData, getImageUrl } = this.props;
 
@@ -66,10 +66,10 @@ export default class ItemDetails extends Component {
     const { item, image } = this.state;
 
     if (!item) {
-      return <span>Select an item from a list</span>;
+      return <span>Select an item from a list <br/></span>;
     }
 
-    const { id, name, gender, birthYear, eyeColor} = item;
+    const { name } = item;
 
  
     
