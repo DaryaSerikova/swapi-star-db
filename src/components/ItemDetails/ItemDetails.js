@@ -37,7 +37,10 @@ export default class ItemDetails extends Component {
     
     // код нужно обязательно обернуть в условие, 
     // если нужно сменить setState,иначе будет бесконечный цикл рендеров
-    if(this.props.itemId !== prevProps.itemId) { 
+
+    if(this.props.itemId !== prevProps.itemId || 
+      this.props.getData !== prevProps.getData ||
+      this.props.getImageUrl !== prevProps.getImageUrl) { 
       this.updateItem();
     }
   }

@@ -6,6 +6,7 @@ import ItemList from '../ItemList';
 import ItemDetails from '../ItemDetails';
 import ErrorIndicator from '../ErrorIndicator';
 import SwapiService from '../../services/swapi-service';
+import DummySwapiService from '../../services/dummy-swapi-service';
 import Row from '../Row';
 
 import './App.css';
@@ -25,11 +26,26 @@ import {
 
 export default class App extends Component {
 
-  swapiService =  new SwapiService();
+  // swapiService =  new DummySwapiService(); //DummySwapiService | SwapiService
 
   state = {
     showRandomPlanet: true,
-    hasError: false
+    hasError: false,
+    swapiService: new DummySwapiService()
+  };
+
+  onServiceChange = () => {
+    this.setState(({ swapiService }) => { //state (swapiService из него)
+      //нас интересует предыдущее значение, поэтому смотрим state
+
+      const Service = swapiService instanceof SwapiService ? //если это обычный SwapiService, то
+                      DummySwapiService : SwapiService;
+      console.log('switched to', Service.name);
+
+      return {
+        swapiService: new Service()
+      };
+    });
   };
 
   toggleRandomPlanet = () => {
@@ -57,50 +73,31 @@ export default class App extends Component {
       <RandomPlanet /> :
       null;
 
-      // const { getPerson,
-      //         getStarship,
-      //         getPersonImage,
-      //         getStarshipImage,
-      //         getAllPeople,
-      //         getAllPlanets } = this.swapiService;
+    const { getPerson,
+            getStarship,
+            getPersonImage,
+            getStarshipImage,
+            getAllPeople,
+            getAllPlanets } = this.state.swapiService;
 
-    // const personDetails = (
-    //   <ItemDetails 
-    //   itemId={11}
-    //   getData={getPerson}  
-    //   getImageUrl={getPersonImage}>
+    const personDetails = (
+      <ItemDetails/>
+    );
 
-    //     <Record field="gender" label="Gender"/>
-    //     <Record field="eyeColor" label="Eye Color"/>
-
-    //   </ItemDetails>
-    // );
-
-    // const starshipDetails = (
-    //   <ItemDetails 
-    //   itemId={5}
-    //   getData={getStarship} 
-    //   getImageUrl={getStarshipImage}>
-
-    //     <Record field="model" label="Model"/>
-    //     <Record field="length" label="Length"/>
-    //     <Record field="costInCredits" label="Cost"/>
-
-
-    //   </ItemDetails>
-    // );
+    const starshipDetails = (
+      <ItemDetails />
+    );
 
     return (
       <ErrorBoundary>
-        <SwapiServiceProvider value={this.swapiService} >
+        <SwapiServiceProvider value={this.state.swapiService} > 
+        {/* Место, в котором установливаем значение SwapiService */}
           <div className="stardb-app">
-            <Header />
+            <Header onServiceChange={this.onServiceChange}/>
 
             <PersonDetails itemId={11}/>
             <PlanetDetails itemId={5}/>
             <StarshipDetails itemId={9}/>
-
-
 
             {/* {planet}
 
