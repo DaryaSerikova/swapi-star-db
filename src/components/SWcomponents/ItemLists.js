@@ -47,8 +47,46 @@ const StarshipList = withSwapiService(
                     withData(withChildFunction(ItemList, renderModelAndName)),
                     mapStarshipMethodsToProps);
 
+//Внимание! если использовать код ниже, то нужно переписать везде  
+// использование функциий, потому что теперь у них другое поведение
+// const StarshipList = withSwapiService(mapPersonMethodsToProps)(
+//     withData(
+//         withChildFunction(renderModelAndName)(
+//             ItemList)));
+
 export {
     PersonList,
     PlanetList,
     StarshipList
 };
+
+//Техника: "частично применненные функции" (partially applied functions)
+// const add = (a, b) => a + b;
+// add(1, 2);
+
+// const add = (a) => (b) => a + b; //это оно
+// add(1)(2);
+// Такие функции принимают часть аргументов и возвращают функции - 
+// с меньшим количеством аргументов
+
+
+
+// const compose = (...funcs) => (comp) => {
+//     //???
+// }
+
+// compose(a, b, c)(value)
+
+// a(b(c(value)));
+
+// compose(
+//     withSwapiService(mapMethodsToProps),
+//     withData,
+//     withChildFunction(renderModelAndName)
+// )(ItemList);
+
+// const arr = ['a', 'b', 'c'];
+// const res = arr.reduceRight((prevResult, value) => {
+//     return prevResult + value;
+// },'XX')
+// console.log(res); //XX cba
