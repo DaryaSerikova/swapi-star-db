@@ -10,6 +10,9 @@ import ErrorBoundary from '../ErrorBoundary';
 import { SwapiServiceProvider } from '../SwapiServiceContext.js';
 import { PeoplePage, PlanetsPage, StarshipsPage } from '../pages';
 
+// import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
+
 
 
 export default class App extends Component {
@@ -38,17 +41,18 @@ export default class App extends Component {
       <ErrorBoundary>
         <SwapiServiceProvider value={this.state.swapiService} > 
         {/* Место, в котором установливаем значение SwapiService */}
+          <Router>
+            <div className="stardb-app">
+              <Header onServiceChange={this.onServiceChange}/>
 
-          <div className="stardb-app">
-            <Header onServiceChange={this.onServiceChange}/>
+              <RandomPlanet updateInterval={5000}/>
 
-            <RandomPlanet updateInterval={5000}/>
+              <Route path="/people" component={PeoplePage} />
+              <Route path="/planets" component={PlanetsPage} />
+              <Route path="/starships" component={StarshipsPage} />
 
-            <PeoplePage/>
-            <PlanetsPage/>
-            <StarshipsPage/>
-
-          </div>
+            </div>
+          </Router>
         </SwapiServiceProvider>
       </ErrorBoundary>
     );
